@@ -15,9 +15,9 @@ async function getData() {
         { cache: "no-store" }
       ),
       Promise.all(
-        Array.from({ length: 8 }).map(() =>
+        Array.from({ length: 8 }).map((_, index) =>
           fetch(
-            "https://bukuacak-9bdcb4ef2605.herokuapp.com/api/v1/random_book",
+            `https://bukuacak-9bdcb4ef2605.herokuapp.com/api/v1/random_book?random=${index}`,
             { cache: "no-store" }
           )
         )
