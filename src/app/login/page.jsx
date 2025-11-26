@@ -4,7 +4,7 @@ import React from "react";
 const Login = () => {
   return (
     <div>
-      <GoToShop name="Login" />
+      <GoToShop name="Login / Register" />
     </div>
   );
 };

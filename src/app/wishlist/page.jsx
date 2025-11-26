@@ -4,7 +4,7 @@ import React from "react";
 const Cart = () => {
   return (
     <div>
-      <GoToShop name="Cart" />
+      <GoToShop name="Wishlist" />
     </div>
   );
 };

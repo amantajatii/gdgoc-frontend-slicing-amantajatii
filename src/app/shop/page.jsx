@@ -29,6 +29,7 @@ async function getData() {
       listRes.json(),
       Promise.all(eightRandomArray.map((r) => r.json())),
     ]);
+    console.log(randomBook);
 
     return {
       randomBook,

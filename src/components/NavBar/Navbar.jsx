@@ -102,7 +102,7 @@ const Navbar = () => {
                 <h6 className="text-lg">Login / Register</h6>
               </Link>
               <Link
-                href="/"
+                href="/shop"
                 onClick={() => setShowMobileMenu(false)}
                 className=" px-3 py-2.5 rounded-md">
                 <FiSearch />

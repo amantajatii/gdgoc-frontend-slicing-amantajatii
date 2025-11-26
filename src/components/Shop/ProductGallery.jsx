@@ -4,21 +4,78 @@ import Link from "next/link";
 import { MdFavoriteBorder } from "react-icons/md";
 import { BsCart } from "react-icons/bs";
 import { IoEye } from "react-icons/io5";
+import BookCover from "./BookCover";
+
+// Swiper imports
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
 
 const ProductGallery = ({ book }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
+  // Mocking 4 images to demonstrate carousel as requested
+  const images = book.images?.length
+    ? book.images
+    : [book.cover_image, book.cover_image, book.cover_image, book.cover_image];
 
   if (!book) return null;
 
   return (
     <div className="w-full">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 justify-items-center">
-        <div className="bg-gray-100">
-          <img
-            src={book.cover_image}
-            alt={`book cover ${book.title}`}
-            className="w-full min-w-[348px] max-w-[506px] h-auto min-h-[277px] lg:h-[475px] my-auto object-contain overflow-hidden"
-          />
+        <div className="flex flex-col gap-4 w-full max-w-[506px]">
+          <Swiper
+            style={{
+              "--swiper-navigation-color": "#fff",
+              "--swiper-pagination-color": "#fff",
+            }}
+            loop={true}
+            spaceBetween={10}
+            navigation={true}
+            thumbs={{ swiper: thumbsSwiper }}
+            modules={[FreeMode, Navigation, Thumbs]}
+            className="w-full h-[475px] bg-gray-100 rounded-lg overflow-hidden">
+            {images.map((img, index) => (
+              <SwiperSlide key={index}>
+                <BookCover
+                  src={img}
+                  alt={`book cover ${book.title} ${index + 1}`}
+                  className="w-full h-full object-contain"
+                  width={506}
+                  height={475}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          <Swiper
+            onSwiper={setThumbsSwiper}
+            loop={true}
+            spaceBetween={10}
+            slidesPerView={4}
+            freeMode={true}
+            watchSlidesProgress={true}
+            modules={[FreeMode, Navigation, Thumbs]}
+            className="thumbs-swiper w-full h-[75px]">
+            {images.map((img, index) => (
+              <SwiperSlide
+                key={index}
+                className="cursor-pointer rounded-md overflow-hidden border-2 border-transparent transition duration-300 opacity-60 hover:opacity-100 [&.swiper-slide-thumb-active]:border-blue-500 [&.swiper-slide-thumb-active]:opacity-100">
+                <BookCover
+                  src={img}
+                  alt={`thumbnail ${index + 1}`}
+                  className="w-full h-full object-cover"
+                  width={100}
+                  height={75}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
         <div className="flex flex-col gap-6">
           <div className="flex flex-wrap gap-3 mt-4">
