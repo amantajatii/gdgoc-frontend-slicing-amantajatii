@@ -1,12 +1,12 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { MdFavoriteBorder } from "react-icons/md";
-import { BsCart } from "react-icons/bs";
+import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
+import { BsCart, BsCartFill } from "react-icons/bs";
 import { IoEye } from "react-icons/io5";
 import BookCover from "./BookCover";
+import { useShop } from "@/context/ShopContext";
 
-// Swiper imports
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import "swiper/css";
@@ -17,8 +17,18 @@ import "swiper/css/thumbs";
 const ProductGallery = ({ book }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const {
+    addToCart,
+    removeFromCart,
+    addToWishlist,
+    removeFromWishlist,
+    isInCart,
+    isInWishlist,
+  } = useShop();
 
-  // Mocking 4 images to demonstrate carousel as requested
+  const inCart = book ? isInCart(book._id) : false;
+  const inWishlist = book ? isInWishlist(book._id) : false;
+
   const images = book.images?.length
     ? book.images
     : [book.cover_image, book.cover_image, book.cover_image, book.cover_image];
@@ -102,7 +112,7 @@ const ProductGallery = ({ book }) => {
             {book.summary
               ? isExpanded
                 ? book.summary
-                : `${book.summary.substring(0, 150)}...`
+                : `${book.summary.substring(0, 180)}...`
               : "No summary available."}
             {book.summary && (
               <button
@@ -138,11 +148,27 @@ const ProductGallery = ({ book }) => {
                 Buy Now
               </Link>
             </button>
-            <button className="bg-[#dbecff] w-12 h-12 rounded-full flex items-center justify-center text-2xl cursor-pointer hover:bg-[#b0d5fe] hover:scale-105 hover:shadow-md transition duration-300">
-              <MdFavoriteBorder />
+            <button
+              onClick={() =>
+                inWishlist ? removeFromWishlist(book._id) : addToWishlist(book)
+              }
+              className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl cursor-pointer hover:scale-105 hover:shadow-md transition duration-300 ${
+                inWishlist
+                  ? "bg-red-100 text-red-500 hover:bg-red-200"
+                  : "bg-[#dbecff] hover:bg-[#b0d5fe]"
+              }`}>
+              {inWishlist ? <MdFavorite /> : <MdFavoriteBorder />}
             </button>
-            <button className="bg-[#dbecff] w-12 h-12 rounded-full flex items-center justify-center text-2xl cursor-pointer hover:bg-[#b0d5fe] hover:scale-105 hover:shadow-md transition duration-300">
-              <BsCart />
+            <button
+              onClick={() =>
+                inCart ? removeFromCart(book._id) : addToCart(book)
+              }
+              className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl cursor-pointer hover:scale-105 hover:shadow-md transition duration-300 ${
+                inCart
+                  ? "bg-green-100 text-green-600 hover:bg-green-200"
+                  : "bg-[#dbecff] hover:bg-[#b0d5fe]"
+              }`}>
+              {inCart ? <BsCartFill /> : <BsCart />}
             </button>
             <button className="bg-[#dbecff] w-12 h-12 rounded-full flex items-center justify-center text-2xl cursor-pointer hover:bg-[#b0d5fe] hover:scale-105 hover:shadow-md transition duration-300">
               <IoEye />

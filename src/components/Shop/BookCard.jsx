@@ -10,7 +10,7 @@ const BookCard = ({ book }) => {
     <Link
       href={buyUrl}
       target={isExternal ? "_blank" : "_self"}
-      className="w-[239px] min-w-[239px] lg:w-full lg:min-w-0 min-h-[438px] bg-[#ffffff] shrink-0  hover:translate-y-[-5px] hover:shadow-lg transition duration-300 block"
+      className="w-[239px] min-w-[239px] lg:w-full lg:min-w-0 min-h-[438px] bg-[#ffffff] shrink-0  hover:translate-y-[-5px] hover:shadow-lg transition duration-300 block cursor-pointer"
       key={book._id}>
       <div className="h-[280px] w-full overflow-hidden">
         <BookCover

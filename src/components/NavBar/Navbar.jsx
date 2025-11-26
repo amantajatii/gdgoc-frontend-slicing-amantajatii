@@ -8,9 +8,11 @@ import { BiMenuAltRight } from "react-icons/bi";
 import Link from "next/link";
 import { IoIosArrowDown } from "react-icons/io";
 import { BsCart } from "react-icons/bs";
+import { useShop } from "@/context/ShopContext";
 
 const Navbar = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const { cart, wishlist } = useShop();
 
   return (
     <>
@@ -41,7 +43,7 @@ const Navbar = () => {
               <h6 className="text-md font-semibold">Login / Register</h6>
             </Link>
             <Link
-              href="/"
+              href="/search"
               className=" px-3 py-2.5 rounded-md cursor-pointer hover:bg-[#f0f0f0] transition duration-300">
               <FiSearch />
             </Link>
@@ -49,13 +51,13 @@ const Navbar = () => {
               href="/cart"
               className="flex gap-1 justify-center items-center  px-3 py-2.5 rounded-md cursor-pointer hover:bg-[#f0f0f0] transition duration-300">
               <BsCart />
-              <p className="text-sm">1</p>
+              <p className="text-sm">{cart.length}</p>
             </Link>
             <Link
               href="/wishlist"
               className="flex gap-1 justify-center items-center  px-3 py-2.5 rounded-md cursor-pointer hover:bg-[#f0f0f0] transition duration-300">
               <MdFavoriteBorder />
-              <p className="text-sm">1</p>
+              <p className="text-sm">{wishlist.length}</p>
             </Link>
           </div>
         </div>
@@ -102,7 +104,7 @@ const Navbar = () => {
                 <h6 className="text-lg">Login / Register</h6>
               </Link>
               <Link
-                href="/shop"
+                href="/search"
                 onClick={() => setShowMobileMenu(false)}
                 className=" px-3 py-2.5 rounded-md">
                 <FiSearch />
@@ -112,14 +114,14 @@ const Navbar = () => {
                 onClick={() => setShowMobileMenu(false)}
                 className="flex gap-1 justify-center items-center  px-3 py-2.5 rounded-md">
                 <BsCart />
-                <p className="text-xs">1</p>
+                <p className="text-xs">{cart.length}</p>
               </Link>
               <Link
                 href="/wishlist"
                 onClick={() => setShowMobileMenu(false)}
                 className="flex gap-1 justify-center items-center  px-3 py-2.5 rounded-md">
                 <MdFavoriteBorder />
-                <p className="text-xs">1</p>
+                <p className="text-xs">{wishlist.length}</p>
               </Link>
             </div>
           </div>
