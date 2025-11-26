@@ -5,6 +5,16 @@ import { getProxiedImageUrl } from "@/lib/utils";
 
 import Skeleton from "../Skeleton";
 
+import { IoImageOutline } from "react-icons/io5";
+
+const NoImagePlaceholder = ({ className }) => (
+  <div
+    className={`flex flex-col items-center justify-center bg-gray-100 text-gray-400 ${className}`}>
+    <IoImageOutline className="text-4xl mb-2" />
+    <span className="text-sm font-medium">No Image</span>
+  </div>
+);
+
 const BookCover = ({ src, alt, className, width, height }) => {
   const [imgSrc, setImgSrc] = useState(getProxiedImageUrl(src));
   const [hasError, setHasError] = useState(false);
@@ -13,7 +23,6 @@ const BookCover = ({ src, alt, className, width, height }) => {
   const handleError = () => {
     if (!hasError) {
       setHasError(true);
-      setImgSrc("https://placehold.co/400x600?text=No+Image");
       setIsLoading(false);
     }
   };
@@ -21,6 +30,10 @@ const BookCover = ({ src, alt, className, width, height }) => {
   const handleLoad = () => {
     setIsLoading(false);
   };
+
+  if (hasError) {
+    return <NoImagePlaceholder className={className} />;
+  }
 
   return (
     <div className={`relative ${className}`}>

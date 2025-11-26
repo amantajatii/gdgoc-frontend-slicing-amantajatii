@@ -15,7 +15,7 @@ const Navbar = () => {
   return (
     <>
       {/* desktop view */}
-      <div className=" hidden lg:flex w-screen bg-[#ffffff] flex-col items-center justify-center">
+      <div className="sticky top-0 z-50 shadow-sm hidden lg:flex w-full bg-[#ffffff] flex-col items-center justify-center">
         <div className="h-[78px] max-w-5xl w-[90vw] flex gap-16 items-center justify-between">
           <h3 className="text-xl font-semibold">
             <Link href="/shop">Bookstar</Link>
@@ -62,7 +62,7 @@ const Navbar = () => {
       </div>
 
       {/* mobile view */}
-      <div className="w-full bg-[#ffffff] flex lg:hidden flex-col items-center justify-between">
+      <div className="sticky top-0 z-50 shadow-sm w-full bg-[#ffffff] flex lg:hidden flex-col items-center justify-between">
         <div className="flex items-center w-full p-8 justify-between">
           <h3 className="text-xl font-semibold">Bookstar</h3>
           <button

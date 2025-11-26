@@ -1,9 +1,16 @@
 import BookCover from "./BookCover";
 
+import Link from "next/link";
+
 const BookCard = ({ book }) => {
+  const buyUrl = book.buy_links?.[0]?.url || "#";
+  const isExternal = !!book.buy_links?.[0]?.url;
+
   return (
-    <div
-      className="w-[239px] min-w-[239px] lg:w-full lg:min-w-0 min-h-[438px] bg-[#ffffff] shrink-0 shadow-md hover:translate-y-[-5px] hover:shadow-lg transition duration-300"
+    <Link
+      href={buyUrl}
+      target={isExternal ? "_blank" : "_self"}
+      className="w-[239px] min-w-[239px] lg:w-full lg:min-w-0 min-h-[438px] bg-[#ffffff] shrink-0  hover:translate-y-[-5px] hover:shadow-lg transition duration-300 block"
       key={book._id}>
       <div className="h-[280px] w-full overflow-hidden">
         <BookCover
@@ -34,7 +41,7 @@ const BookCard = ({ book }) => {
           </h5>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
