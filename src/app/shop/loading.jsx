@@ -1,11 +1,15 @@
-import { FaRegCircle } from "react-icons/fa";
+import {
+  ProductGallerySkeleton,
+  ReadingListSkeleton,
+  BooksForYouSkeleton,
+} from "@/components/Shop/Skeletons";
 
 export default function Loading() {
   return (
-    <main className="h-[70vh] flex items-center justify-center">
-      <p className="text-gray-500 animate-pulse text-4xl">
-        <FaRegCircle />
-      </p>
-    </main>
+    <div className="flex flex-col gap-16 w-[90vw] max-w-5xl mx-auto px-8 mb-12 lg:px-0 mt-8">
+      <ProductGallerySkeleton />
+      <ReadingListSkeleton />
+      <BooksForYouSkeleton />
+    </div>
   );
 }
